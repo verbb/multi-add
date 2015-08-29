@@ -1,0 +1,22 @@
+{% import "_includes/forms" as forms %}
+
+{% block content %}
+	<div class="multiAddSettings">
+		<h2>{{ name }}&nbsp;</h2>
+		<p><small>(Version {{ version }})</small></p>
+		<p>
+			MultiAdd lets you add multiple items to your cart at once.
+			<br>For <a href="http://buildwithcraft.com" title="Craft CMS">Craft</a>, with <a href="http://buildwithmarket.com/" title="Craft Commerce">Commerce</a>.
+		</p>
+		<div>
+			<p>Debugging?<br>Dumps the POST data back to the page &amp; prevents redirects, so you can see if your form is submitting the correct data</p>
+			{{
+				forms.lightswitch({
+					onLabel:	"On",
+					offLabel:	"Off",
+					name:		"debug",
+					on:			settings.debug,
+				})
+			}}
+		</div>
+{% endblock %}
