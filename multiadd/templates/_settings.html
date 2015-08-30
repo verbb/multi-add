@@ -9,7 +9,7 @@
 			<br>For <a href="http://buildwithcraft.com" title="Craft CMS">Craft</a>, with <a href="http://buildwithmarket.com/" title="Craft Commerce">Commerce</a>.
 		</p>
 		<div>
-			<p>Debugging?<br>Dumps the POST data back to the page &amp; prevents redirects, so you can see if your form is submitting the correct data</p>
+			<h4>Debugging?</h4>
 			{{
 				forms.lightswitch({
 					onLabel:	"On",
@@ -18,5 +18,6 @@
 					on:			settings.debug,
 				})
 			}}
+			<p>Dumps the POST data back to the page &amp; prevents redirects, so you can see if your form is submitting the correct data.<br>(This setting is ignored if you're submitting by ajax.)</p>
 		</div>
 {% endblock %}

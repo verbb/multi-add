@@ -32,7 +32,7 @@ class MultiAddController extends BaseController
         $this->requirePostRequest();
 
         $errors = array();
-        $items = craft()->request->getPost('item');
+        $items = craft()->request->getPost('items');
 
         if ($debug){
             echo '<h3>Items</h3><pre>';
@@ -64,7 +64,7 @@ class MultiAddController extends BaseController
                         }
                         if (!craft()->market_cart->addToCart($cart, $purchasableId, $qty, $error)) {
                             $errors[] = $error;
-                            $needsRollback = true;
+                            $needsRollback = true;                            
                             break;
                         }
                         else{
@@ -74,33 +74,7 @@ class MultiAddController extends BaseController
                     }
                 }
 
-                //Hopefully all went well.  If not, we're in trouble...attempt to roll back the additions...
-                //should use new update methods, but for now lets remove those items from the cart
-                if ($needsRollback){
-                    foreach ($rollback as $purchasableId => $qty){
-                        if ($debug){
-                            echo '<pre>Rolling back item: ';
-                            print_r($purchasableId);
-                            echo '</pre>';
-                        }
-                        
-                        $cart = craft()->market_cart->getCart();
-                        
-                        try{
-                            //$lineItem = craft()->market_lineItem->getByOrderPurchasable($cart->id, $purchasableId);
-                            craft()->market_cart->removeFromCart($cart, $purchasableId);
-                            craft()->market_order->save($cart);
-                        }
-                        catch (Exception $e) {
-                            $errors[] = $e->getMessage();
-                            if ($debug){
-                                echo 'Failed rollback of item: ' . $e->getMessage() . '<pre>';
-                                print_r($purchasableId);
-                                echo '</pre>';  
-                            } 
-                        }
-                    }
-                }
+                //ROLLBACK code to go here once Luke's new controller is available
 
             }
 
