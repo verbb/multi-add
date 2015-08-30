@@ -78,20 +78,26 @@ class MultiAddController extends BaseController
                 //should use new update methods, but for now lets remove those items from the cart
                 if ($needsRollback){
                     foreach ($rollback as $purchasableId => $qty){
-                        echo '<pre>Rolling back item: ';
-                        print_r($purchasableId);
-                        echo '</pre>';
+                        if ($debug){
+                            echo '<pre>Rolling back item: ';
+                            print_r($purchasableId);
+                            echo '</pre>';
+                        }
+                        
                         $cart = craft()->market_cart->getCart();
                         
                         try{
-                            $lineItem = craft()->market_lineItem->getByOrderPurchasable($cart->id, $purchasableId);
-                            craft()->market_cart->removeFromCart($cart, $lineItem->id);
+                            //$lineItem = craft()->market_lineItem->getByOrderPurchasable($cart->id, $purchasableId);
+                            craft()->market_cart->removeFromCart($cart, $purchasableId);
                             craft()->market_order->save($cart);
                         }
                         catch (Exception $e) {
-                            echo 'Failed rollback of item: ' . $e->getMessage() . '<pre>';
-                            print_r($purchasableId);
-                            echo '</pre>';   
+                            $errors[] = $e->getMessage();
+                            if ($debug){
+                                echo 'Failed rollback of item: ' . $e->getMessage() . '<pre>';
+                                print_r($purchasableId);
+                                echo '</pre>';  
+                            } 
                         }
                     }
                 }
