@@ -1,9 +1,6 @@
 <?php
 namespace Craft;
 
-// TO DEBUG
-// Just change the debug var below to true - will stop cart submits and dump the cart array to the top of the page
-
 class MultiAddController extends Market_BaseFrontEndController
 {
 
@@ -13,7 +10,6 @@ class MultiAddController extends Market_BaseFrontEndController
         MultiAddPlugin::log($error, LogLevel::Error);
     }
    
-
     public function actionMultiAdd()
     {
 
