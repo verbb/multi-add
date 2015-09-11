@@ -41,4 +41,4 @@ Alternatively, submit via Ajax & get JSON responses.
 
 ## Thanks
 
-Thanks go out to [@lukeholder](https://github.com/lukeholder) and [@jdaalder](https://twitter.com/jdaalder).
+Thanks go out to [@lukeholder](https://github.com/lukeholder) and [@bossanova808](https://github.com/bossanova808).
