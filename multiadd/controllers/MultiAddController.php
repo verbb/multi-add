@@ -4,7 +4,7 @@ namespace Craft;
 // TO DEBUG
 // Just change the debug var below to true - will stop cart submits and dump the cart array to the top of the page
 
-class MultiAddController extends BaseController
+class MultiAddController extends Market_BaseFrontEndController
 {
 
     protected $allowAnonymous = true;
@@ -54,7 +54,9 @@ class MultiAddController extends BaseController
 
                 foreach ($items as $key => $item) {
                     $purchasableId    = $item['purchasableId'];
-                    $qty             = isset($item['qty']) ? (int)$item['qty'] : 0;                    
+                    $qty              = isset($item['qty']) ? (int)$item['qty'] : 0; 
+                    $note             = isset($item['note']) ? $item['note'] : ""; 
+
                     $cart->setContentFromPost('fields');
 
                     if ($qty != 0) {
@@ -63,7 +65,8 @@ class MultiAddController extends BaseController
                             print_r($item);
                             echo '</pre>';
                         }
-                        if (!craft()->market_cart->addToCart($cart, $purchasableId, $qty, $error)) {
+                        // @TODO add note here...
+                        if (!craft()->market_cart->addToCart($cart, $purchasableId, $qty, $note, $error)) {
                             $errors[] = $error;
                             $needsRollback = true;                            
                             break;
@@ -100,7 +103,7 @@ class MultiAddController extends BaseController
                 $this->returnErrorJson($errors);
             }
             else{
-                $this->returnJson(['success'=>true,'cart'=>$cart->toArray()]);
+                $this->returnJson(['success'=>true,'cart'=>$this->cartArray($cart)]);
             }
         }
 
