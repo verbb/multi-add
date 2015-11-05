@@ -1,7 +1,7 @@
 <?php
 namespace Craft;
 
-class MultiAddController extends Market_BaseFrontEndController
+class MultiAddController extends Commerce_BaseFrontEndController
 {
 
     protected $allowAnonymous = true;
@@ -27,7 +27,7 @@ class MultiAddController extends Market_BaseFrontEndController
         //Require POST request
         $this->requirePostRequest();
 
-        $cart = craft()->market_cart->getCart();
+        $cart = craft()->commerce_cart->getCart();
 
         $errors = array();
         $items = craft()->request->getPost('items');
@@ -62,7 +62,7 @@ class MultiAddController extends Market_BaseFrontEndController
                             echo '</pre>';
                         }
                         // @TODO add note here...
-                        if (!craft()->market_cart->addToCart($cart, $purchasableId, $qty, $note, $error)) {
+                        if (!craft()->commerce_cart->addToCart($cart, $purchasableId, $qty, $note, $error)) {
                             $errors[] = $error;
                             $needsRollback = true;                            
                             break;
@@ -85,7 +85,7 @@ class MultiAddController extends Market_BaseFrontEndController
                 craft()->urlManager->setRouteVariables(['error' => $errors]);
             } 
             else {
-                craft()->userSession->setFlash('market', 'Products have been added');
+                craft()->userSession->setFlash('commerce', 'Products have been added');
                 //only redirect if we're not debugging and we haven't submitted by ajax
                 if (!$debug and !$ajax){
                     $this->redirectToPostedUrl();
