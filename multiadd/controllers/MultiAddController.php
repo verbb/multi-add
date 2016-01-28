@@ -54,16 +54,8 @@ class MultiAddController extends Commerce_BaseFrontEndController
                     $qty              = isset($item['qty']) ? (int)$item['qty'] : 0; 
                     $note             = isset($item['note']) ? $item['note'] : ""; 
                     $error            = "";
-                    $options          = [];
-
-                    //we can have an arbitrary number of options[whatever] = value in the POST
-                    foreach ($item as $innerKey => $innerItem){
-                        if (strpos($innerKey, "options") === 0 ){
-                            $keyName = substr($innerKey,8);
-                            $keyName = rtrim($keyName,"]");
-                            $options[$keyName] = $innerItem;
-                        }
-                    }                 
+                    //the following line means you can pass abritrary options like this: items[0][options][note]
+                    $options          = isset($item['options']) ? $item['options'] : [];         
 
                     $cart->setContentFromPost('fields');
 
