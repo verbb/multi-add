@@ -9,7 +9,8 @@ class MultiAddController extends Commerce_BaseFrontEndController
     private function logError($error){
         MultiAddPlugin::log($error, LogLevel::Error);
     }
-   
+
+  
     public function actionMultiAdd()
     {
 
@@ -52,6 +53,17 @@ class MultiAddController extends Commerce_BaseFrontEndController
                     $purchasableId    = $item['purchasableId'];
                     $qty              = isset($item['qty']) ? (int)$item['qty'] : 0; 
                     $note             = isset($item['note']) ? $item['note'] : ""; 
+                    $error            = "";
+                    $options          = [];
+
+                    //we can have an arbitrary number of options[whatever] = value in the POST
+                    foreach ($item as $innerKey => $innerItem){
+                        if (strpos($innerKey, "options") === 0 ){
+                            $keyName = substr($innerKey,8);
+                            $keyName = rtrim($keyName,"]");
+                            $options[$keyName] = $innerItem;
+                        }
+                    }                 
 
                     $cart->setContentFromPost('fields');
 
@@ -61,8 +73,7 @@ class MultiAddController extends Commerce_BaseFrontEndController
                             print_r($item);
                             echo '</pre>';
                         }
-                        // @TODO add note here...
-                        if (!craft()->commerce_cart->addToCart($cart, $purchasableId, $qty, $note, $error)) {
+                        if (!craft()->commerce_cart->addToCart($cart, $purchasableId, $qty, $note, $options, $error)) {
                             $errors[] = $error;
                             $needsRollback = true;                            
                             break;
