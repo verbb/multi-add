@@ -14,6 +14,11 @@ Use the following code in your product template to make use of this new controll
 	    <input type="hidden" name="items[{{ loop.index }}][purchasableId]" value="{{ product.defaultVariant.id }}">
         <input type="hidden" name="items[{{ loop.index }}][qty]" value="1">
         <input type="text" name="items[{{ loop.index }}][note]">
+        <select name="items[{{ loop.index }}][options][color]">
+            <option value="blue">Blue</option>
+            <option value="white">White</option>
+            <option value="red">Red</option>
+        </select>
     {% endfor %}
 </form>
 ```
