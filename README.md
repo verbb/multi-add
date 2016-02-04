@@ -47,6 +47,10 @@ Alternatively, submit via Ajax & get JSON responses.
 });
 ```
 
+## Compatibility
+
+This plugin has been tested with Craft 2.5 and Craft Commerce 1.0.1187.
+
 ## Changelog
 
 0.0.6 [Added] New `multiaddfast` controller to make adding large numbers of items to the cart much quicker. `multiadd` is kept for backwards compatibility.  This controller also appropriately fails & rolls back if any part of the transaction succeeds (vs. the original multiadd where you'd be left in an unknown state).
