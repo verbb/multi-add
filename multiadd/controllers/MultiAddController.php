@@ -10,6 +10,77 @@ class MultiAddController extends Commerce_BaseFrontEndController
         MultiAddPlugin::log($error, LogLevel::Error);
     }
 
+
+    public function actionMultiAddFast()
+    {
+
+        //Called via Ajax?
+        $ajax = craft()->request->isAjaxRequest();
+
+        //Get plugin settings
+        $settings = craft()->plugins->getPlugin('multiAdd')->getSettings();
+        //Settings to control behavour when testing - we don't want to debug via ajax or it stuffs up the JSON response...
+        $debug = ($settings->debug and !$ajax);
+      
+        //Store items added to the cart in case of later failure & rollback required
+        $rollback = array();
+
+        //Require POST request
+        $this->requirePostRequest();
+
+        $cart = craft()->commerce_cart->getCart();
+
+        $errors = array();
+
+        $items = craft()->request->getPost('items');
+
+        if ($debug){
+            echo '<h3>Items</h3><pre>';
+            print_r($items);
+            echo '</pre>';
+        }
+
+        if (!isset($items)) {
+            $errors[] = "No items?";
+            craft()->urlManager->setRouteVariables(['error' => 'No items?']);
+        } 
+        else {
+            // Do some cart-adding!
+            if (!$errors) {
+                $error = "";
+                if (!craft()->multiAdd_cart->multiAddToCart($cart, $items, $error)) {
+                    $errors[] = $error;  
+                }              
+            }
+
+            if ($errors) {
+                foreach ($errors as $error) {
+                    $this->logError($error);
+                }
+                craft()->urlManager->setRouteVariables(['error' => $errors]);
+            } 
+            else {
+                craft()->userSession->setFlash('commerce', 'Products have been added');
+                //only redirect if we're not debugging and we haven't submitted by ajax
+                if (!$debug and !$ajax){
+                    $this->redirectToPostedUrl();
+                }
+            }
+        }
+
+        // Appropriate Ajax responses...
+        if($ajax){
+            if($errors){
+                $this->returnErrorJson($errors);
+            }
+            else{
+                $this->returnJson(['success'=>true,'cart'=>$this->cartArray($cart)]);
+            }
+        }
+
+
+    }
+
   
     public function actionMultiAdd()
     {
