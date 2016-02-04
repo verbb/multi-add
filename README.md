@@ -1,14 +1,12 @@
 # MultiAdd
 
-Provides an alternative controller to assist in adding multiple items to your Market Commerce cart at once.
+Provides an alternative controller to assist in adding multiple items to your Craft Commerce cart at once.
 
 Use the following code in your product template to make use of this new controller.
 
-(N.B. version 0.0.6 introduced a new controller `multiaddfast` but the original controller `multiadd` is retained for backwards compatibility, and because the new controller does not yet support raising the standard Commerce hooks).
-
 ```
 <form method="POST" id="addToCart">
-    <input type="hidden" name="action" value="multiAdd/multiaddfast">
+    <input type="hidden" name="action" value="multiAdd/multiadd">
     <input type="hidden" name="redirect" value="/cart">
     {{ getCsrfInput() }}
 
@@ -53,7 +51,7 @@ This plugin has been tested with Craft 2.5 and Craft Commerce 1.0.1187.
 
 ## Changelog
 
-0.0.6 [Added] New `multiaddfast` controller to make adding large numbers of items to the cart much quicker. `multiadd` is kept for backwards compatibility.  This controller also appropriately fails & rolls back if any part of the transaction succeeds (vs. the original multiadd where you'd be left in an unknown state).
+0.0.6 [Added] Refactor as a controller & service, following the Commerce_CartService approach.  This makes it much faster and it supports rollback on failure too.
 
 0.0.5 [Added] Add support for the options[whatever] system to multiadd
 
