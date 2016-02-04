@@ -1,6 +1,6 @@
 # MultiAdd
 
-Provides an alternative controller to assist in adding multiple items to your Market Commerce cart at once.
+Provides an alternative controller to assist in adding multiple items to your Craft Commerce cart at once.
 
 Use the following code in your product template to make use of this new controller.
 
