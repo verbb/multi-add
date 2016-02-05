@@ -53,13 +53,13 @@ This plugin has been tested with Craft 2.5 and Craft Commerce 1.0.1187.
 
 0.0.6 [Added] Refactor as a controller & service, following the Commerce_CartService approach.  This makes it much faster and it supports rollback on failure too.
 
-0.0.5 [Added] Add support for the options[whatever] system to multiadd
+0.0.5 [Added] Add support for the new Commerce options[whatever] system
 
-0.0.4 [Fixed] Updated to support Craft 2.5 and Commerce 0.9.1170+
+0.0.4 [Fixed] Updated with support Craft 2.5 and Commerce 0.9.1170+
 
 0.0.3 [Added] Add support for line item notes & add JSON returns for ajax requests
 
-0.0.2 [Added] Simple debugging support, JSON responses,Error logging to plugin log
+0.0.2 [Added] Simple debugging support, JSON responses, error logging to plugin log
 
 0.0.1 [Added] Creation and initial version of multiadd
 
