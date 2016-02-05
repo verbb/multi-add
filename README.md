@@ -6,7 +6,7 @@ Use the following code in your product template to make use of this new controll
 
 ```
 <form method="POST" id="addToCart">
-    <input type="hidden" name="action" value="multiAdd/multiadd">
+    <input type="hidden" name="action" value="multiAdd/multiAdd">
     <input type="hidden" name="redirect" value="/cart">
     {{ getCsrfInput() }}
 
