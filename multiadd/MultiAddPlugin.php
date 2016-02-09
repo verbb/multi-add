@@ -22,7 +22,7 @@ class MultiAddPlugin extends BasePlugin
 
     public function getVersion()
     {
-        return '0.0.6';
+        return '0.0.7';
     }
 
     public function getDeveloper()

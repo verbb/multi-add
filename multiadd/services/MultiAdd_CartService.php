@@ -6,6 +6,50 @@ use Commerce\Helpers\CommerceDbHelper;
 class MultiAdd_CartService extends BaseApplicationComponent
 {
 
+
+    /**
+     * Before Event
+     * Event params: order(Commerce_OrderModel), lineItems (array of Commerce_LineItemModel)
+     *
+     * @param \CEvent $event
+     *
+     * @throws \CException
+     */
+    public function onBeforeMultiAddToCart(\CEvent $event)
+    {
+        $params = $event->params;
+        if (empty($params['order']) || !($params['order'] instanceof Commerce_OrderModel)) {
+            throw new Exception('onBeforeMultiAddToCart event requires "order" param with OrderModel instance');
+        }
+
+        if (empty($params['lineItems'])) {
+            throw new Exception('onBeforeMultiAddToCart event requires "lineItems" param with array of LineItemModel instances');
+        }
+        $this->raiseEvent('onBeforeMultiAddToCart', $event);
+    }
+
+    /**
+     * Event method.
+     * Event params: order(Commerce_OrderModel), lineItems (array of Commerce_LineItemModel)
+     *
+     * @param \CEvent $event
+     *
+     * @throws \CException
+     */
+    public function onMultiAddToCart(\CEvent $event)
+    {
+        $params = $event->params;
+        if (empty($params['order']) || !($params['order'] instanceof Commerce_OrderModel)) {
+            throw new Exception('onMultiAddToCart event requires "order" param with OrderModel instance');
+        }
+
+        if (empty($params['lineItems'])) {
+            throw new Exception('onMultiAddToCart event requires "lineItems" param with array of LineItemModel instances');
+        }
+        $this->raiseEvent('onMultiAddToCart', $event);
+    }
+
+
     /**
      * Most of this is cribbed from the standard Commerce_CartService
      *
@@ -64,33 +108,55 @@ class MultiAdd_CartService extends BaseApplicationComponent
         //Be bold, be brave, assume success...!
         $success = true;
 
-        foreach ($lineItems as $lineItem){
+        //raising event - passes in only the first line item which isn't ideal...
+        $event = new Event($this, [
+            'lineItems' => $lineItems,
+            'order' => $order,
+        ]);
+        $this->onBeforeMultiAddToCart($event);
 
-            $lineItem->validate();
-            $lineItem->purchasable->validateLineItem($lineItem);
+        if(!$event->performAction){
+            $success = false;
+            CommerceDbHelper::rollbackStackedTransaction();
+        }
+        else{
+            foreach ($lineItems as $lineItem){
 
-            try {
-                if(!$lineItem->hasErrors()){
-                    if (!craft()->commerce_lineItems->saveLineItem($lineItem)) {
-                        $success = false;
-                        break;
+                $lineItem->validate();
+                $lineItem->purchasable->validateLineItem($lineItem);
+
+                try {
+                    if(!$lineItem->hasErrors()){
+                        if (!craft()->commerce_lineItems->saveLineItem($lineItem)) {
+                            $success = false;
+                            break;
+                        }
                     }
-                }
-                else{
+                    else{
+                        $success = false;
+                        $errors = $lineItem->getAllErrors();
+                        break;
+                    }              
+
+                } catch (\Exception $e) {
                     $success = false;
-                    $errors = $lineItem->getAllErrors();
-                    break;
+                    CommerceDbHelper::rollbackStackedTransaction();
+                    throw $e;
                 }
-            } catch (\Exception $e) {
-                $success = false;
-                CommerceDbHelper::rollbackStackedTransaction();
-                throw $e;
             }
         }
 
         if($success){
             craft()->commerce_orders->saveOrder($order);
             CommerceDbHelper::commitStackedTransaction();
+
+            //raising event
+            $event = new Event($this, [
+                'lineItems' => $lineItems,
+                'order' => $order,
+            ]);
+            $this->onMultiAddToCart($event);   
+
             return true;
         }
         else{
