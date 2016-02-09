@@ -4,11 +4,9 @@ Provides an alternative controller to assist in adding multiple items to your Cr
 
 Use the following code in your product template to make use of this new controller.
 
-(N.B. version 0.0.6 introduced a new controller `multiaddfast` but the original controller `multiadd` is retained for backwards compatibility, and because the new controller does not yet support raising the standard Commerce hooks).
-
 ```
 <form method="POST" id="addToCart">
-    <input type="hidden" name="action" value="multiAdd/multiaddfast">
+    <input type="hidden" name="action" value="multiAdd/multiAdd">
     <input type="hidden" name="redirect" value="/cart">
     {{ getCsrfInput() }}
 
@@ -53,15 +51,15 @@ This plugin has been tested with Craft 2.5 and Craft Commerce 1.0.1187.
 
 ## Changelog
 
-0.0.6 [Added] New `multiaddfast` controller to make adding large numbers of items to the cart much quicker. `multiadd` is kept for backwards compatibility.  This controller also appropriately fails & rolls back if any part of the transaction succeeds (vs. the original multiadd where you'd be left in an unknown state).
+0.0.6 [Added] Refactor as a controller & service, following the Commerce_CartService approach.  This makes it much faster and it supports rollback on failure too.
 
-0.0.5 [Added] Add support for the options[whatever] system to multiadd
+0.0.5 [Added] Add support for the new Commerce options[whatever] system
 
-0.0.4 [Fixed] Updated to support Craft 2.5 and Commerce 0.9.1170+
+0.0.4 [Fixed] Updated with support Craft 2.5 and Commerce 0.9.1170+
 
 0.0.3 [Added] Add support for line item notes & add JSON returns for ajax requests
 
-0.0.2 [Added] Simple debugging support, JSON responses,Error logging to plugin log
+0.0.2 [Added] Simple debugging support, JSON responses, error logging to plugin log
 
 0.0.1 [Added] Creation and initial version of multiadd
 
