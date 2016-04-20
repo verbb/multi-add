@@ -73,6 +73,9 @@ This plugin has been tested with Craft 2.5 and Craft Commerce 1.0.1187.
 
 ## Changelog
 
+0.0.8 
+* [Fixed] Handle submissions with all zero quantities more gracefully
+
 0.0.7 
 * [Added] Add custom events similar to the standard Commerce add to cart events.
 * [Fixed] Improved the documentation a bit based on recent Slack chats

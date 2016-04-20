@@ -50,7 +50,24 @@ class MultiAddController extends Commerce_BaseFrontEndController
             $errors[] = "No items?";
             craft()->urlManager->setRouteVariables(['error' => 'No items?']);
         } 
+
+        //prevent submission of all 0 qtys
+        $itemsToProcess = false;
+        foreach ($items as $key => $item) {
+            $qty = isset($item['qty']) ? (int)$item['qty'] : 0;
+            if ($qty >0){
+                $itemsToProcess = true;
+                break;
+            }
+        }
+
+        if(!$itemsToProcess){
+            $errors[] = "All items have 0 quantity?";
+            craft()->urlManager->setRouteVariables(['error' => 'No items?']);
+        } 
         else {
+
+
             // Do some cart-adding using our new, faster, rollback-able service
             if (!$errors) {
                 $error = "";

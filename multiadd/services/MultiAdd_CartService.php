@@ -108,7 +108,7 @@ class MultiAdd_CartService extends BaseApplicationComponent
         //Be bold, be brave, assume success...!
         $success = true;
 
-        //raising event - passes in only the first line item which isn't ideal...
+        //raising event
         $event = new Event($this, [
             'lineItems' => $lineItems,
             'order' => $order,
