@@ -25,6 +25,11 @@ class MultiAddPlugin extends BasePlugin
         return '0.0.9';
     }
 
+    public function getSchemaVersion()
+    {
+        return '0.0.1';
+    }
+
     public function getDeveloper()
     {
         return 'S. Group';
