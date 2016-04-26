@@ -22,7 +22,7 @@ class MultiAddPlugin extends BasePlugin
 
     public function getVersion()
     {
-        return '0.0.8';
+        return '0.0.9';
     }
 
     public function getDeveloper()
@@ -41,6 +41,11 @@ class MultiAddPlugin extends BasePlugin
 
     function getDescription(){
         return 'Provides an alternative controller to assist in adding multiple items to your Craft Commerce cart in one operation.';
+    }
+
+    public function getReleaseFeedUrl()
+    {
+        return 'https://raw.githubusercontent.com/engram-design/MultiAdd/master/releases.json';
     }
 
     function hasSettings(){
