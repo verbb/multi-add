@@ -73,6 +73,12 @@ This plugin has been tested with Craft 2.5 and Craft Commerce 1.0.1187.
 
 ## Changelog
 
+0.1.0 
+* [Improved] Improved error handling.
+
+0.0.9
+* [Added] releases.json
+
 0.0.8 
 * [Fixed] Handle submissions with all zero quantities more gracefully
 

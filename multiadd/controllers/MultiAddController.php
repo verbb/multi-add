@@ -46,52 +46,50 @@ class MultiAddController extends Commerce_BaseFrontEndController
             echo '</pre>';
         }
 
+        
         if (!isset($items)) {
-            $errors[] = "No items?";
-            craft()->urlManager->setRouteVariables(['error' => 'No items?']);
+            $errors[] = "No items to add.";
         } 
-
-        //prevent submission of all 0 qtys
-        $itemsToProcess = false;
-        foreach ($items as $key => $item) {
-            $qty = isset($item['qty']) ? (int)$item['qty'] : 0;
-            if ($qty >0){
-                $itemsToProcess = true;
-                break;
+        else{
+            $itemsToProcess = false;
+            //prevent submission of all 0 qtys            
+            foreach ($items as $key => $item) {
+                $qty = isset($item['qty']) ? (int)$item['qty'] : 0;
+                if ($qty >0){
+                    $itemsToProcess = true;
+                    break;
+                }
+            }
+            if(!$itemsToProcess){
+                $errors[] = "All items have 0 quantity.";
             }
         }
 
-        if(!$itemsToProcess){
-            $errors[] = "All items have 0 quantity?";
-            craft()->urlManager->setRouteVariables(['error' => 'No items?']);
-        } 
+
+        // Do some cart-adding using our new, faster, rollback-able service
+        if (!$errors) {
+            $error = "";
+            if (!craft()->multiAdd_cart->multiAddToCart($cart, $items, $error)) {
+                $errors[] = $error;  
+            }              
+        }
+
+        //trouble?
+        if ($errors) {
+            foreach ($errors as $error) {
+                $this->logError($error);
+            }
+            craft()->urlManager->setRouteVariables(['error' => $errors]);
+        }
+        //everything went fine!
         else {
-
-
-            // Do some cart-adding using our new, faster, rollback-able service
-            if (!$errors) {
-                $error = "";
-                if (!craft()->multiAdd_cart->multiAddToCart($cart, $items, $error)) {
-                    $errors[] = $error;  
-                }              
-            }
-
-            //trouble?
-            if ($errors) {
-                foreach ($errors as $error) {
-                    $this->logError($error);
-                }
-                craft()->urlManager->setRouteVariables(['error' => $errors]);
-            }
-            //everything went fine!
-            else {
-                craft()->userSession->setFlash('notice', 'Products have been multiadd-ed');
-                //only redirect if we're not debugging and we haven't submitted by ajax
-                if (!$debug and !$ajax){
-                    $this->redirectToPostedUrl();
-                }
+            craft()->userSession->setFlash('notice', 'Products have been multiadd-ed');
+            //only redirect if we're not debugging and we haven't submitted by ajax
+            if (!$debug and !$ajax){
+                $this->redirectToPostedUrl();
             }
         }
+
 
         // Appropriate Ajax responses...
         if($ajax){

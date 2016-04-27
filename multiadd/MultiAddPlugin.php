@@ -22,7 +22,7 @@ class MultiAddPlugin extends BasePlugin
 
     public function getVersion()
     {
-        return '0.0.9';
+        return '0.1.0';
     }
 
     public function getSchemaVersion()

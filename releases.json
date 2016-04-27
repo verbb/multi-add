@@ -1,5 +1,13 @@
 [
     {
+        "version": "0.1.0",
+        "downloadUrl": "https://github.com/engram-design/MultiAdd/archive/0.1.0.zip",
+        "date": "2016-04-27T11:17:28+10:00",
+        "notes": [
+            "[Improved] Error Handling",
+        ]
+    },
+    {
         "version": "0.0.9",
         "downloadUrl": "https://github.com/engram-design/MultiAdd/archive/0.0.9.zip",
         "date": "2016-04-26T11:17:28+10:00",
