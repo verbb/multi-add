@@ -91,13 +91,24 @@ class MultiAdd_CartService extends BaseApplicationComponent
                 //filling item model
                 $lineItem = craft()->commerce_lineItems->getLineItemByOrderPurchasableOptions($order->id, $purchasableId, $options);
 
-                if ($lineItem) {
+                if ($lineItem)
+                {
+                    foreach ($order->getLineItems() as $$item)
+                    {
+                        if ($item->id == $lineItem->id)
+                        {
+                            $lineItem = $item;
+                        }
+                    }
                     $lineItem->qty += $qty;
-                } else {
-                    $lineItem = craft()->commerce_lineItems->createLineItem($purchasableId, $order->id, $options, $qty);
+                }
+                else
+                {
+                    $lineItem = craft()->commerce_lineItems->createLineItem($purchasableId, $order, $options, $qty);
                 }
 
-                if ($note) {
+                if ($note)
+                {
                     $lineItem->note = $note;
                 }
 
