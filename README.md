@@ -73,7 +73,7 @@ This plugin has been tested with Craft 2.5 and Craft Commerce 1.0.1187.
 
 ## Changelog
 
-0.1.2
+0.1.3
 * [Fixed] Update for Commerce 1.1.1207 changes to addToCart
 
 0.1.0 
