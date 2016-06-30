@@ -172,6 +172,7 @@ class MultiAdd_CartService extends BaseApplicationComponent
         }
         else{
             CommerceDbHelper::rollbackStackedTransaction();
+            $errors = $lineItem->getAllErrors();
             $error = array_pop($errors);
             return false;
         }
