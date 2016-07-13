@@ -73,42 +73,7 @@ This plugin has been tested with Craft 2.5 and Craft Commerce 1.0.1187.
 
 ## Changelog
 
-0.1.4
-* [Fixed] Fix for error reporting
-
-0.1.3
-* [Fixed] Update for Commerce 1.1.1207 changes to addToCart
-
-0.1.0 
-* [Improved] Improved error handling.
-
-0.0.9
-* [Added] releases.json
-
-0.0.8 
-* [Fixed] Handle submissions with all zero quantities more gracefully
-
-0.0.7 
-* [Added] Add custom events similar to the standard Commerce add to cart events.
-* [Fixed] Improved the documentation a bit based on recent Slack chats
-
-0.0.6 
-* [Added] Refactor as a controller & service, following the Commerce_CartService approach.  This makes it much faster and it supports rollback on failure too.
-
-0.0.5 
-* [Added] Add support for the new Commerce options[whatever] system
-
-0.0.4 
-* [Fixed] Updated with support Craft 2.5 and Commerce 0.9.1170+
-
-0.0.3 
-* [Added] Add support for line item notes & add JSON returns for ajax requests
-
-0.0.2 
-* [Added] Simple debugging support, JSON responses, error logging to plugin log
-
-0.0.1 
-* [Added] Creation and initial version of multiadd
+See [releases.json](https://raw.githubusercontent.com/engram-design/MultiAdd/master/releases.json)
 
 ## Credits
 
