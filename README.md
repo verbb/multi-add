@@ -24,6 +24,7 @@ Here's some example code to get you started - if you get stuck, just ask on the 
 	    <input type="hidden" name="items[{{ loop.index }}][purchasableId]" value="{{ product.defaultVariant.id }}">
         <input type="hidden" name="items[{{ loop.index }}][qty]" value="1">
         <input type="text" name="items[{{ loop.index }}][note]">
+        
         <select name="items[{{ loop.index }}][options][color]">
             <option value="blue">Blue</option>
             <option value="white">White</option>
@@ -37,22 +38,19 @@ Alternatively, submit via Ajax & get a JSON response, which (on success) include
 
 ```
  $("#addToCart").submit(function(e) {
+    e.preventDefault();
 
-        e.preventDefault();
-        var data = $(this).serialize();
-        data[window.csrfTokenName] = window.csrfTokenValue;
+    var data = $(this).serialize();
+    data[window.csrfTokenName] = window.csrfTokenValue;
 
-        $.post('/actions/' + $('input[name=action]').val(), data, function(response) {
-
-                if (response.success) {
-                    $("#addToCartButton").val("Added!");
-                    cart.update( response.cart );
-                } 
-                else {
-                   $("#addToCartButton").val("Error!");
-                }
-        });
-        
+    $.post('/actions/' + $('input[name=action]').val(), data, function(response) {
+        if (response.success) {
+            $("#addToCartButton").val("Added!");
+            cart.update( response.cart );
+        } else {
+           $("#addToCartButton").val("Error!");
+        }
+    });
 });
 ```
 
