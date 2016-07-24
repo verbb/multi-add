@@ -103,4 +103,36 @@ class MultiAddController extends Commerce_BaseFrontEndController
 
         //Not AJAX? We're done!
     }
+
+    public function actionUpdateCart()
+    {
+        $this->requirePostRequest();
+        $cart = craft()->commerce_cart->getCart();
+
+        $errors = array();
+        $items = craft()->request->getPost('items');
+
+        foreach ($items as $lineItemId => $item) {
+            $lineItem = craft()->commerce_lineItems->getLineItemById($lineItemId);
+            $lineItem->qty = $item['qty'];
+
+            // Fail silently if its not their line item or it doesn't exist.
+            if (!$lineItem || !$lineItem->id || ($cart->id != $lineItem->orderId)) {
+                return true;
+            }
+
+            if (!craft()->commerce_lineItems->updateLineItem($cart, $lineItem, $error)) {
+                $errors[] = $error;
+            }
+        }
+
+        if ($errors) {
+            craft()->userSession->setError(Craft::t('Couldn’t update line item: {message}', [
+                'message' => $error
+            ]));
+        } else {
+            craft()->userSession->setNotice(Craft::t('Items updated.'));
+            $this->redirectToPostedUrl();
+        }
+    }
 }

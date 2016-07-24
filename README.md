@@ -56,6 +56,27 @@ Alternatively, submit via Ajax & get a JSON response, which (on success) include
 });
 ```
 
+## Update Cart
+
+When viewing your cart, its currently not possible to update all your line items at once - instead it must be done for each line item. This might be desirable when a user has multiple line items in their cart, and wants to update quantities all at once by click a 'Update Cart' button.
+
+To achieve this, create your cart template using the following guide:
+
+```
+<form method="POST">
+    <input type="hidden" name="action" value="multiAdd/updateCart">
+    <input type="hidden" name="redirect" value="/cart">
+    {{ getCsrfInput() }}
+
+    {% for item in cart.lineItems %}
+        <input type="text" size="4" name="items[{{ item.id }}][qty]" value="{{ item.qty }}">
+    {% endfor %}
+
+    <button type="submit">Update Cart</button>
+</form>
+```
+
+
 ## Events
 
 This plugin raises two events, much like normal the Commerce add to cart, which you can listen for in the same way.  They are:
