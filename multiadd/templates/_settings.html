@@ -1,22 +1,22 @@
 {% import "_includes/forms" as forms %}
 
 {% block content %}
-	<div class="multiAddSettings">
-        <p><small>Version: {{ version }}</small></p>
-        <p>
-            {{ description }}
-        </p>
-        <hr>
-		<div>
-			<h4>Debugging?</h4>
-			{{
-				forms.lightswitch({
-					onLabel:	"On",
-					offLabel:	"Off",
-					name:		"debug",
-					on:			settings.debug,
-				})
-			}}
-			<p>Dumps the POST data back to the page &amp; prevents redirects, so you can see if your form is submitting the correct data.<br>(This setting is ignored if you're submitting by ajax.)</p>
-		</div>
+
+<div class="multiAddSettings">
+    <p><small>{{ 'Version: {version}' | t({ version: version }) }}</small></p>
+    <p>{{ description }}</p>
+    <hr>
+
+	<div>
+		<h4>{{ 'Debugging?' | t }}</h4>
+
+		{{ forms.lightswitch({
+			onLabel: "On",
+			offLabel: "Off",
+			name: "debug",
+			on: settings.debug,
+		}) }}
+
+		<p>{{ 'Dumps the POST data back to the page &amp; prevents redirects, so you can see if your form is submitting the correct data. (This setting is ignored if you're submitting by ajax.)' | t }}</p>
+	</div>
 {% endblock %}

@@ -3,7 +3,6 @@ namespace Craft;
 
 class MultiAddPlugin extends BasePlugin
 {
-
     protected $settings;
 
     public function init()
@@ -11,9 +10,9 @@ class MultiAddPlugin extends BasePlugin
         $this->settings = $this->getSettings();
     }
 
-    /* --------------------------------------------------------------
-    * PLUGIN INFO
-    * ------------------------------------------------------------ */
+    // =========================================================================
+    // PLUGIN INFO
+    // =========================================================================
 
     public function getName()
     {
@@ -40,11 +39,13 @@ class MultiAddPlugin extends BasePlugin
         return 'http://sgroup.com.au';
     }
 
-    function getDocumentationUrl(){
+    public function getDocumentationUrl()
+    {
         return 'https://github.com/engram-design/MultiAdd';
     }
 
-    function getDescription(){
+    public function getDescription()
+    {
         return 'Provides an alternative controller to assist in adding multiple items to your Craft Commerce cart in one operation.';
     }
 
@@ -53,10 +54,10 @@ class MultiAddPlugin extends BasePlugin
         return 'https://raw.githubusercontent.com/engram-design/MultiAdd/master/releases.json';
     }
 
-    function hasSettings(){
+    public function hasSettings()
+    {
         return true;
     }
-
 
     public function defineSettings()
     {
@@ -71,17 +72,14 @@ class MultiAddPlugin extends BasePlugin
         $settings = $this->settings;
 
         $variables = array(
-            'name'     => $this->getName(true),
-            'version'  => $this->getVersion(),
-            'settings' => $settings,
+            'name'          => $this->getName(),
+            'description'   => $this->getDescription(),
+            'version'       => $this->getVersion(),
+            'settings'      => $settings,
         );
 
         return craft()->templates->render('multiadd/_settings', $variables);
 
    }
 
-    /* --------------------------------------------------------------
-    * HOOKS
-    * ------------------------------------------------------------ */
- 
 }
