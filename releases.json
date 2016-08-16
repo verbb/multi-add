@@ -1,5 +1,14 @@
 [
     {
+        "version": "0.1.6",
+        "downloadUrl": "https://github.com/engram-design/MultiAdd/archive/0.1.6.zip",
+        "date": "2016-08-16T11:17:28+10:00",
+        "notes": [
+            "[Added] updateCart endpoint to update multiple line items in one go, e.g. via na Update Cart button",
+            "[Fixed] fix for missing descriptions variable in plugin settings"
+        ]
+    },  
+    {
         "version": "0.1.5",
         "downloadUrl": "https://github.com/engram-design/MultiAdd/archive/0.1.5.zip",
         "date": "2016-04-27T11:17:28+10:00",
