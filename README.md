@@ -76,7 +76,7 @@ Alternatively, submit via Ajax & get a JSON response, which (on success) include
 
 ## Update Cart
 
-When viewing your cart, it's currently not possible to update all your line items at once - instead it must be done for each line item as a separate event. This controller let's you update multiple line items at onece.  This might be desirable when a user has multiple line items in their cart, and wants to update quantities all at once by clicking an 'Update Cart' button.
+When viewing your cart, it's currently not possible to update all your line items at once - instead it must be done for each line item as a separate event. This controller let's you update multiple line items at once.  This might be desirable when a user has multiple line items in their cart, and wants to update quantities all at once by clicking an 'Update Cart' button.
 
 To achieve this, create your cart template using the following guide:
 
