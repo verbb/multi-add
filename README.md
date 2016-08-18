@@ -14,13 +14,15 @@ Notes:
 
 Here's some example code to get you started - if you get stuck, just ask on the Craft CMS Slack #craftcommerce channel for help.
 
+This code displays all your products in one form:
+
 ```
 <form method="POST" id="addToCart">
     <input type="hidden" name="action" value="multiAdd/multiAdd">
     <input type="hidden" name="redirect" value="/cart">
     {{ getCsrfInput() }}
 
-    {% for product in craft.market.products.find() %}
+    {% for product in craft.commerce.products.find() %}
 	    <input type="hidden" name="items[{{ loop.index }}][purchasableId]" value="{{ product.defaultVariant.id }}">
         <input type="hidden" name="items[{{ loop.index }}][qty]" value="1">
         <input type="text" name="items[{{ loop.index }}][note]">
@@ -30,6 +32,24 @@ Here's some example code to get you started - if you get stuck, just ask on the 
             <option value="white">White</option>
             <option value="red">Red</option>
         </select>
+    {% endfor %}
+</form>
+```
+
+Or say you want to list the variants of a particular product out:
+
+```
+<form method="POST" id="addToCart">
+    <input type="hidden" name="action" value="multiAdd/multiAdd">
+    <input type="hidden" name="redirect" value="/cart">
+    {{ getCsrfInput() }}
+
+    {% set product = craft.commerce.products.slug('your-product') %}
+
+    {% for variant in product.variants %}
+        <input type="hidden" name="items[{{ loop.index }}][purchasableId]" value="{{ variant.id }}">
+        <input type="hidden" name="items[{{ loop.index }}][qty]" value="1">
+        <input type="text" name="items[{{ loop.index }}][note]">
     {% endfor %}
 </form>
 ```
@@ -56,7 +76,7 @@ Alternatively, submit via Ajax & get a JSON response, which (on success) include
 
 ## Update Cart
 
-When viewing your cart, it's currently not possible to update all your line items at once - instead it must be done for each line item. This might be desirable when a user has multiple line items in their cart, and wants to update quantities all at once by clicking an 'Update Cart' button.
+When viewing your cart, it's currently not possible to update all your line items at once - instead it must be done for each line item as a separate event. This controller let's you update multiple line items at onece.  This might be desirable when a user has multiple line items in their cart, and wants to update quantities all at once by clicking an 'Update Cart' button.
 
 To achieve this, create your cart template using the following guide:
 
@@ -88,7 +108,7 @@ In each case the event parameters are:
 
 ## Compatibility
 
-This plugin has been tested with Craft 2.5 and Craft Commerce 1.0.1187.
+This plugin has been tested with Craft 2.5 and Craft Commerce 1.0.1187 and above. It's in use daily on production systems.
 
 ## Changelog
 
