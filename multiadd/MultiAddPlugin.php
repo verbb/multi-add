@@ -3,7 +3,40 @@ namespace Craft;
 
 class MultiAddPlugin extends BasePlugin
 {
-    protected $settings;
+    static protected $settings;
+
+    /**
+     * Static log functions for this plugin
+     *
+     * @param mixed $msg
+     * @param string $level
+     * @param bool $force
+     *
+     * @return null
+     */
+    public static function logError($msg){
+        MultiAddPlugin::log($msg, LogLevel::Error, $force = true);
+    }
+    public static function logWarning($msg){
+        MultiAddPlugin::log($msg, LogLevel::Warning, $force = true);
+    }
+    // If debugging is set to true in this plugin's settings, then log every message, devMode or not.
+    public static function log($msg, $level = LogLevel::Profile, $force = false)
+    {
+        if(self::$settings['debug']) $force=true;
+
+        if (is_string($msg))
+        {
+            $msg = "\n\n" . $msg . "\n";
+        }
+        else
+        {
+            $msg = "\n\n" . print_r($msg, true) . "\n";
+        }
+
+        parent::log($msg, $level, $force);
+    }
+
 
     public function init()
     {
@@ -21,7 +54,7 @@ class MultiAddPlugin extends BasePlugin
 
     public function getVersion()
     {
-        return '0.1.6';
+        return '0.1.7';
     }
 
     public function getSchemaVersion()
@@ -62,7 +95,8 @@ class MultiAddPlugin extends BasePlugin
     public function defineSettings()
     {
         return array(
-            'debug' => AttributeType::Bool,
+            'debug'     => AttributeType::Bool,
+            'debugPOST' => AttributeType::Bool,
         );
     }
 

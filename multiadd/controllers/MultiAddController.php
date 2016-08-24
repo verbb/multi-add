@@ -7,14 +7,6 @@ class MultiAddController extends Commerce_BaseFrontEndController
     protected $allowAnonymous = true;
 
     /**
-     * @param $error
-     */
-    private function logError($error){
-        MultiAddPlugin::log($error, LogLevel::Error);
-    }
-
-
-    /**
      * @throws HttpException
      */
     public function actionMultiAdd()
@@ -26,7 +18,7 @@ class MultiAddController extends Commerce_BaseFrontEndController
         //Get plugin settings
         $settings = craft()->plugins->getPlugin('multiAdd')->getSettings();
         //Settings to control behavour when testing - we don't want to debug via ajax or it stuffs up the JSON response...
-        $debug = ($settings->debug and !$ajax);
+        $debug = ($settings->debugPOST and !$ajax);
       
         //Store items added to the cart in case of later failure & rollback required
         $rollback = array();
@@ -60,7 +52,7 @@ class MultiAddController extends Commerce_BaseFrontEndController
                     break;
                 }
             }
-            if(!$itemsToProcess){
+            if(!$itemsToProcess){                
                 $errors[] = "All items have 0 quantity.";
             }
         }
@@ -76,8 +68,10 @@ class MultiAddController extends Commerce_BaseFrontEndController
 
         //trouble?
         if ($errors) {
-            foreach ($errors as $error) {
-                $this->logError($error);
+            //Try to log referrer in case of misadventure - might help track down odd errors
+            MultiAddPlugin::logError(craft()->request->getUrlReferrer());
+            foreach ($errors as $error) {                            
+                MultiAddPlugin::logError($error);
             }
             craft()->urlManager->setRouteVariables(['error' => $errors]);
         }
@@ -130,6 +124,7 @@ class MultiAddController extends Commerce_BaseFrontEndController
             craft()->userSession->setError(Craft::t('Couldn’t update line item: {message}', [
                 'message' => $error
             ]));
+            MultiAddPlugin::logError('Couldn’t update line item: [$error]');
         } else {
             craft()->userSession->setNotice(Craft::t('Items updated.'));
             $this->redirectToPostedUrl();

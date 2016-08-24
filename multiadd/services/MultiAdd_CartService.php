@@ -67,7 +67,9 @@ class MultiAdd_CartService extends BaseApplicationComponent
         //saving current cart if it's new and empty
         if (!$order->id) {
             if (!craft()->commerce_orders->saveOrder($order)) {
-                throw new Exception(Craft::t('Error on creating empty cart'));
+                CommerceDbHelper::rollbackStackedTransaction();
+                MultiAddPlugin::logError('Error on creating empty cart');
+                throw new Exception(Craft::t('Error on creating empty cart in multiadd'));
             }
         }
 
@@ -158,8 +160,15 @@ class MultiAdd_CartService extends BaseApplicationComponent
         }
 
         if($success){
-            craft()->commerce_orders->saveOrder($order);
-            CommerceDbHelper::commitStackedTransaction();
+            $orderSaveSuccess = craft()->commerce_orders->saveOrder($order);
+            if($orderSaveSuccess) {
+                CommerceDbHelper::commitStackedTransaction();
+            }
+            else{
+                MultiAddPlugin::logError('Error when saving order');
+                CommerceDbHelper::rollbackStackedTransaction();
+                throw new Exception(Craft::t('Error saving order in multiadd'));                
+            }
 
             //raising event
             $event = new Event($this, [
@@ -171,6 +180,8 @@ class MultiAdd_CartService extends BaseApplicationComponent
             return true;
         }
         else{
+            MultiAddPlugin::logError('Error');
+            MultiAddPlugin::logError($lineItem->getAllErrors());
             CommerceDbHelper::rollbackStackedTransaction();
             $errors = $lineItem->getAllErrors();
             $error = array_pop($errors);

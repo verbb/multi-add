@@ -17,6 +17,21 @@
 			on: settings.debug,
 		}) }}
 
-		<p>{{ "Dumps the POST data back to the page &amp; prevents redirects, so you can see if your form is submitting the correct data. (This setting is ignored if you're submitting by ajax.)" | t }}</p>
+        <p>Makes <code>LogLevel::Profile</code> log messages get logged.</p> 
+        <p><code>LogLevel::Warning</code> and <code>LogLevel::Error</code> are always logged.</p>
+
+        <br>
+
+        <h4>{{ 'Debug POST?' | t }}</h4>
+
+        {{ forms.lightswitch({
+            onLabel: "On",
+            offLabel: "Off",
+            name: "debugPOST",
+            on: settings.debugPOST,
+        }) }}
+
+        <p>{{ "Dumps the POST data back to the page & prevents redirects, so you can see if your form is submitting the correct data. (This setting is ignored if you're submitting by ajax - use your developer console to check that!)" | t }}</p>
+
 	</div>
 {% endblock %}
