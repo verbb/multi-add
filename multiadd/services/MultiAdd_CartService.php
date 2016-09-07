@@ -105,7 +105,7 @@ class MultiAdd_CartService extends BaseApplicationComponent
                     $lineItem->qty += $qty;
                 }
                 else
-                {
+                {                        
                     $lineItem = craft()->commerce_lineItems->createLineItem($purchasableId, $order, $options, $qty);
                 }
 
@@ -115,6 +115,7 @@ class MultiAdd_CartService extends BaseApplicationComponent
                 }
 
                 $lineItems[] = $lineItem;
+               
             }
         }
 
@@ -141,17 +142,20 @@ class MultiAdd_CartService extends BaseApplicationComponent
                 try {
                     if(!$lineItem->hasErrors()){
                         if (!craft()->commerce_lineItems->saveLineItem($lineItem)) {
+                            MultiAddPlugin::logError('Error when saving lineItem');
                             $success = false;
                             break;
                         }
                     }
                     else{
+                        MultiAddPlugin::logError('lineItem failed vaildation');
                         $success = false;
                         $errors = $lineItem->getAllErrors();
                         break;
                     }              
 
                 } catch (\Exception $e) {
+                    MultiAddPlugin::logError('Exception in lineItem adding');
                     $success = false;
                     CommerceDbHelper::rollbackStackedTransaction();
                     throw $e;

@@ -1,5 +1,13 @@
 [
     {
+        "version": "0.1.8",
+        "downloadUrl": "https://github.com/engram-design/MultiAdd/archive/0.1.7.zip",
+        "date": "2016-08-24T11:17:28+10:00",
+        "notes": [
+            "[Fixed] Better logging support",
+        ]
+    }, 
+    {
         "version": "0.1.7",
         "downloadUrl": "https://github.com/engram-design/MultiAdd/archive/0.1.7.zip",
         "date": "2016-08-24T11:17:28+10:00",
@@ -7,7 +15,8 @@
             "[Fixed] Added more logging/rollback of transactions if various errors occur - help with possible rare race condition?",
             "[Added] Debugging swtich now controls log of all log messages, debug POST offers previous debugging behaviour"
         ]
-    },     {
+    },     
+    {
         "version": "0.1.6",
         "downloadUrl": "https://github.com/engram-design/MultiAdd/archive/0.1.6.zip",
         "date": "2016-08-16T11:17:28+10:00",

@@ -3,7 +3,7 @@ namespace Craft;
 
 class MultiAddPlugin extends BasePlugin
 {
-    static protected $settings;
+    protected static $settings;
 
     /**
      * Static log functions for this plugin
@@ -40,7 +40,7 @@ class MultiAddPlugin extends BasePlugin
 
     public function init()
     {
-        $this->settings = $this->getSettings();
+        self::$settings = $this->getSettings();
     }
 
     // =========================================================================
@@ -54,7 +54,7 @@ class MultiAddPlugin extends BasePlugin
 
     public function getVersion()
     {
-        return '0.1.7';
+        return '0.1.8';
     }
 
     public function getSchemaVersion()
@@ -103,7 +103,7 @@ class MultiAddPlugin extends BasePlugin
     public function getSettingsHtml()
     {
 
-        $settings = $this->settings;
+        $settings = self::$settings;
 
         $variables = array(
             'name'          => $this->getName(),
