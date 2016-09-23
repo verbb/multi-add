@@ -169,9 +169,11 @@ class MultiAdd_CartService extends BaseApplicationComponent
                 CommerceDbHelper::commitStackedTransaction();
             }
             else{
+                $errors = $order->getErrors();
+                $error = array_pop($errors);
                 MultiAddPlugin::logError('Error when saving order');
                 CommerceDbHelper::rollbackStackedTransaction();
-                throw new Exception(Craft::t('Error saving order in multiadd'));                
+                return false;
             }
 
             //raising event
