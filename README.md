@@ -106,6 +106,15 @@ In each case the event parameters are:
 `order` (Commerce_OrderModel)
 `lineItems` (an array of Commerce_LineItemModel)
 
+```
+craft()->on('multiAdd_cart.onBeforeMultiAddToCart', function($event) {
+    $order = $event->params['order'];
+    $lineItems = $event->params['lineItems'];
+    $event->performAction = false;
+});
+
+```
+
 ## Compatibility
 
 This plugin has been tested with Craft 2.5 and Craft Commerce 1.0.1187 and above. It's in use daily on production systems.
