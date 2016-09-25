@@ -5,44 +5,6 @@ class MultiAddPlugin extends BasePlugin
 {
     protected static $settings;
 
-    /**
-     * Static log functions for this plugin
-     *
-     * @param mixed $msg
-     * @param string $level
-     * @param bool $force
-     *
-     * @return null
-     */
-    public static function logError($msg){
-        MultiAddPlugin::log($msg, LogLevel::Error, $force = true);
-    }
-    public static function logWarning($msg){
-        MultiAddPlugin::log($msg, LogLevel::Warning, $force = true);
-    }
-    // If debugging is set to true in this plugin's settings, then log every message, devMode or not.
-    public static function log($msg, $level = LogLevel::Profile, $force = false)
-    {
-        if(self::$settings['debug']) $force=true;
-
-        if (is_string($msg))
-        {
-            $msg = "\n\n" . $msg . "\n";
-        }
-        else
-        {
-            $msg = "\n\n" . print_r($msg, true) . "\n";
-        }
-
-        parent::log($msg, $level, $force);
-    }
-
-
-    public function init()
-    {
-        self::$settings = $this->getSettings();
-    }
-
     // =========================================================================
     // PLUGIN INFO
     // =========================================================================
@@ -102,7 +64,6 @@ class MultiAddPlugin extends BasePlugin
 
     public function getSettingsHtml()
     {
-
         $settings = self::$settings;
 
         $variables = array(
@@ -113,7 +74,41 @@ class MultiAddPlugin extends BasePlugin
         );
 
         return craft()->templates->render('multiadd/_settings', $variables);
-
    }
 
+    public function init()
+    {
+        self::$settings = $this->getSettings();
+    }
+
+
+    // =========================================================================
+    // PLUGIN LOGGING
+    // =========================================================================
+
+    public static function logError($msg)
+    {
+        MultiAddPlugin::log($msg, LogLevel::Error, $force = true);
+    }
+
+    public static function logWarning($msg)
+    {
+        MultiAddPlugin::log($msg, LogLevel::Warning, $force = true);
+    }
+
+    // If debugging is set to true in this plugin's settings, then log every message, devMode or not.
+    public static function log($msg, $level = LogLevel::Profile, $force = false)
+    {
+        if (self::$settings['debug']) {
+            $force = true;
+        }
+
+        if (is_string($msg)) {
+            $msg = "\n\n" . $msg . "\n";
+        } else {
+            $msg = "\n\n" . print_r($msg, true) . "\n";
+        }
+
+        parent::log($msg, $level, $force);
+    }
 }
