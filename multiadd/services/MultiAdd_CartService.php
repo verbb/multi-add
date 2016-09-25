@@ -121,9 +121,8 @@ class MultiAdd_CartService extends BaseApplicationComponent
             } else {
                 MultiAddPlugin::logError('Error when saving order: ' . print_r($order->getAllErrors(), true));
 
-                // This seems to be unnecessary?
-                //$errors = $order->getErrors();
-                //$error = array_pop($errors);
+                $errors = $order->getErrors();
+                $error = array_pop($errors);
 
                 CommerceDbHelper::rollbackStackedTransaction();
 
@@ -143,9 +142,8 @@ class MultiAdd_CartService extends BaseApplicationComponent
 
             CommerceDbHelper::rollbackStackedTransaction();
 
-            // This seems to be unnecessary?
-            //$errors = $lineItem->getAllErrors();
-            //$error = array_pop($errors);
+            $errors = $lineItem->getAllErrors();
+            $error = array_pop($errors);
 
             return false;
         }
