@@ -1,5 +1,13 @@
 [
     {
+        "version": "0.1.9",
+        "downloadUrl": "https://github.com/engram-design/MultiAdd/archive/0.1.9.zip",
+        "date": "2016-10-21T11:17:28+10:00",
+        "notes": [
+            "[Added] Twig tags for adding item(s) to cart, removing a line item, and clearing the cart",
+        ]
+    }, 
+    {
         "version": "0.1.8",
         "downloadUrl": "https://github.com/engram-design/MultiAdd/archive/0.1.8.zip",
         "date": "2016-08-24T11:17:28+10:00",
