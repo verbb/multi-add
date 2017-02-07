@@ -122,6 +122,16 @@ class MultiAddController extends Commerce_BaseFrontEndController
             }
         }
 
+        // Set Coupon on Cart
+        if (!is_null(craft()->request->getPost('couponCode')))
+        {
+            $couponCode = craft()->request->getPost('couponCode');
+            if (!craft()->commerce_cart->applyCoupon($cart, $couponCode, $error))
+            {
+                $errors[] = $error;
+            }
+        }
+
         if ($errors) {
             craft()->userSession->setError(Craft::t('Couldn’t update line item: {message}', [
                 'message' => $error
