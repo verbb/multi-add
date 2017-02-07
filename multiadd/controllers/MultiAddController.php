@@ -123,11 +123,10 @@ class MultiAddController extends Commerce_BaseFrontEndController
         }
 
         // Set Coupon on Cart
-        if (!is_null(craft()->request->getPost('couponCode')))
-        {
-            $couponCode = craft()->request->getPost('couponCode');
-            if (!craft()->commerce_cart->applyCoupon($cart, $couponCode, $error))
-            {
+        $couponCode = craft()->request->getPost('couponCode');
+
+        if ($couponCode) {
+            if (!craft()->commerce_cart->applyCoupon($cart, $couponCode, $error)) {
                 $errors[] = $error;
             }
         }
