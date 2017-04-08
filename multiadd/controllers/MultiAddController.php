@@ -110,12 +110,13 @@ class MultiAddController extends Commerce_BaseFrontEndController
 
         foreach ($items as $lineItemId => $item) {
             $lineItem = craft()->commerce_lineItems->getLineItemById($lineItemId);
-            $lineItem->qty = $item['qty'];
 
             // Fail silently if its not their line item or it doesn't exist.
             if (!$lineItem || !$lineItem->id || ($cart->id != $lineItem->orderId)) {
                 return true;
             }
+
+            $lineItem->qty = $item['qty'];
 
             if (!craft()->commerce_lineItems->updateLineItem($cart, $lineItem, $error)) {
                 $errors[] = $error;
