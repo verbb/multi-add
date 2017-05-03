@@ -16,7 +16,7 @@ class MultiAddPlugin extends BasePlugin
 
     public function getVersion()
     {
-        return '0.1.9';
+        return '0.2.0';
     }
 
     public function getSchemaVersion()

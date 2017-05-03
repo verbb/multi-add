@@ -80,7 +80,7 @@ class MultiAddController extends Commerce_BaseFrontEndController
 
             craft()->urlManager->setRouteVariables(['error' => $errors]);
         } else {
-            craft()->userSession->setFlash('notice', 'Products have been multiadd-ed');
+            craft()->userSession->setFlash('notice', 'Products have been added to cart');
             
             // Only redirect if we're not debugging and we haven't submitted by ajax
             if (!$debug and !$ajax) {
