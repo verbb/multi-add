@@ -118,6 +118,12 @@ class MultiAddController extends Commerce_BaseFrontEndController
 
             $lineItem->qty = $item['qty'];
 
+            if (isset($item['options'])) {
+                ksort($item['options']);
+                $lineItem->options = $item['options'];
+                $lineItem->optionsSignature = md5(json_encode($item['options']));
+            }
+
             if (!craft()->commerce_lineItems->updateLineItem($cart, $lineItem, $error)) {
                 $errors[] = $error;
             }
