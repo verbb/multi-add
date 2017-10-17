@@ -4,7 +4,11 @@
         "downloadUrl": "https://github.com/engram-design/MultiAdd/archive/0.2.1.zip",
         "date": "2017-10-18T00:00:00+10:00",
         "notes": [
-            "[Added] Verbb marketing (new plugin icon, readme, etc)."
+            "[Added] Verbb marketing (new plugin icon, readme, etc).",
+            "[Added] Added coupon support to actionUpdateCart method.",
+            "[Improved] `actionUpdateCart` - check for found lineItem before adjusting qty. Can produce `Creating default object from empty value` error.",
+            "[Improved] Update for latest Commerce which deprecates CommerceDbHelper.",
+            "[Improved] Update Cart Action - allow options to be updated."
         ]
     }, 
     {
