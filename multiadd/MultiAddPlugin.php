@@ -16,7 +16,7 @@ class MultiAddPlugin extends BasePlugin
 
     public function getVersion()
     {
-        return '0.2.0';
+        return '0.2.1';
     }
 
     public function getSchemaVersion()
@@ -26,17 +26,17 @@ class MultiAddPlugin extends BasePlugin
 
     public function getDeveloper()
     {
-        return 'S. Group';
+        return 'Verbb';
     }
 
     public function getDeveloperUrl()
     {
-        return 'http://sgroup.com.au';
+        return 'https://verbb.io';
     }
 
     public function getDocumentationUrl()
     {
-        return 'https://github.com/engram-design/MultiAdd';
+        return 'https://github.com/verbb/multi-add';
     }
 
     public function getDescription()
@@ -46,7 +46,7 @@ class MultiAddPlugin extends BasePlugin
 
     public function getReleaseFeedUrl()
     {
-        return 'https://raw.githubusercontent.com/engram-design/MultiAdd/master/releases.json';
+        return 'https://raw.githubusercontent.com/verbb/multi-add/master/releases.json';
     }
 
     public function hasSettings()

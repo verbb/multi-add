@@ -1,5 +1,13 @@
 [
     {
+        "version": "0.2.1",
+        "downloadUrl": "https://github.com/engram-design/MultiAdd/archive/0.2.1.zip",
+        "date": "2017-10-18T00:00:00+10:00",
+        "notes": [
+            "[Added] Verbb marketing (new plugin icon, readme, etc)."
+        ]
+    }, 
+    {
         "version": "0.1.9",
         "downloadUrl": "https://github.com/engram-design/MultiAdd/archive/0.1.9.zip",
         "date": "2016-10-21T11:17:28+10:00",
