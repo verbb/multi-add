@@ -34,19 +34,24 @@ class MultiAddPlugin extends BasePlugin
         return 'https://verbb.io';
     }
 
-    public function getDocumentationUrl()
-    {
-        return 'https://github.com/verbb/multi-add';
-    }
-
     public function getDescription()
     {
         return 'Provides an alternative controller to assist in adding multiple items to your Craft Commerce cart in one operation.';
     }
 
+    public function getPluginUrl()
+    {
+        return 'https://github.com/verbb/multi-add';
+    }
+
+    public function getDocumentationUrl()
+    {
+        return 'https://verbb.io/craft-plugins/multi-add/docs';
+    }
+
     public function getReleaseFeedUrl()
     {
-        return 'https://raw.githubusercontent.com/verbb/multi-add/master/releases.json';
+        return 'https://raw.githubusercontent.com/verbb/multi-add/craft-2/releases.json';
     }
 
     public function hasSettings()
