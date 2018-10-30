@@ -11,7 +11,7 @@
         "title": "Feature Tour",
         "collapsable": false,
         "children": [
-            "feature-tour/mutli-add"
+            "feature-tour/multi-add"
         ]
     },
     {
