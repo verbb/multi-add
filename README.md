@@ -1,5 +1,5 @@
 > 
-> ### Multi Add has a new home with the fine folks at Verbb. Read about it in our [blog post](https://verbb.io/blog/welcome-to-verbb).
+> ### Multi Add is for Craft 2 only, and will not make the migration to Craft 3. Mostly because you don't need it anymore! Read about it in our [blog post](https://verbb.io/blog/goodbye-multi-add).
 >
 
 # Multi Add Plugin for Craft CMS
